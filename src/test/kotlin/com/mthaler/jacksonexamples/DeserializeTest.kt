@@ -75,4 +75,11 @@ class DeserializeTest: StringSpec({
         val zoo = """{"animal":{"type":"dog","name":"lacy","barkVolume":2.5}}""".toZoo()
         zoo.animal shouldBe Zoo.Dog("lacy", 2.5)
     }
+
+    "deserializeUsing@JsonProperty" {
+        val json = """{"id":1,"name":"My bean"}"""
+        val bean = json.toMyBean3()
+        bean.id shouldBe 1
+        bean.getTheName() shouldBe "My bean"
+    }
 })
