@@ -64,4 +64,14 @@ class SerializeTest: StringSpec({
         val user = User2(42, User2.Name("John", "Doe"))
         user.toJson() shouldBe """{"id":42}"""
     }
+
+    "serializeMyBeanUsing@JsonInclude" {
+        val bean = MyBean(1, null)
+        bean.toJson() shouldBe """{"id":1}"""
+    }
+
+    "serializeMyBeanUsing@JsonAutoDetect" {
+        val bean = PrivateBean(1, "john")
+        bean.toJson() shouldBe """{"id":1,"name":"john"}"""
+    }
 })
