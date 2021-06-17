@@ -57,4 +57,11 @@ class DeserializeTest: StringSpec({
         bean.firstName shouldBe "John"
         bean.lastName shouldBe "Green"
     }
+
+    "deserializeUsing@JsonIgnoreProperties" {
+        val json = """{"name":"test"}"""
+        val bean = json.toBeanWithIgnoreProperties()
+        bean.id shouldBe 0
+        bean.name shouldBe "test"
+    }
 })
