@@ -1,4 +1,4 @@
-package com.mthaler.jacksonexamples.annotation
+package com.mthaler.jacksonexamples
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import com.fasterxml.jackson.databind.ObjectMapper

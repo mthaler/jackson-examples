@@ -1,7 +1,6 @@
-package com.mthaler.jacksonexamples.annotation
+package com.mthaler.jacksonexamples
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.mthaler.jacksonexamples.*
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import java.text.SimpleDateFormat
