@@ -3,6 +3,7 @@ package com.mthaler.jacksonexamples
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 class SerializeTest: StringSpec({
@@ -87,4 +88,16 @@ class SerializeTest: StringSpec({
         bean.toJson() shouldBe """{"id":1,"name":"My bean"}"""
 
     }
+
+    "serializeUsing@JsonFormat" {
+        val df = SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
+        df.timeZone = TimeZone.getTimeZone("UTC")
+
+        val toParse = "20-12-2014 02:30:00"
+        val date    = df.parse(toParse)
+        val event = EventWithFormat("party", date)
+
+        event.toJson() shouldBe """{"name":"party","eventDate":"20-12-2014 02:30:00"}"""
+    }
+
 })
