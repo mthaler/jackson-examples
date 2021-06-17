@@ -42,13 +42,8 @@ class SerializeTest: StringSpec({
 
     "serializeUsing@JsonSerialize" {
         val df = SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
-
         val toParse = "20-12-2014 02:30:00"
         val date = df.parse(toParse)
-        val event = EventWithSerializer("party", date)
-
-        val result = jacksonObjectMapper().writeValueAsString(event)
-
-        result shouldBe """{"name":"party","eventDate":"20-12-2014 02:30:00"}"""
+        EventWithSerializer("party", date).toJson() shouldBe """{"name":"party","eventDate":"20-12-2014 02:30:00"}"""
     }
 })

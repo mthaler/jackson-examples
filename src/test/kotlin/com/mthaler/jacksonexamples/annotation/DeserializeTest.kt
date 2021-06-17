@@ -5,6 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import java.text.SimpleDateFormat
+
+
+
 
 class DeserializeTest: StringSpec({
 
@@ -34,5 +38,19 @@ class DeserializeTest: StringSpec({
     "deserializeUsing@AnySetter" {
         val json = """{"name":"My bean","attr2":"val2","attr1":"val1"}"""
         json.toExtendableBean().getProperties() shouldBe  mapOf("attr1" to "val1", "attr2" to "val2")
+    }
+
+    "deserializeUsing@JsonSetter" {
+        val json = """{"name":"My bean"}"""
+        json.toMyBean().getTheName() shouldBe "My bean"
+    }
+
+    "deserializeUsing@JsonDeserialize" {
+        val json = """{"name":"party","eventDate":"20-12-2014 02:30:00"}"""
+
+        val df = SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
+        val event = json.toEventWithSerializer()
+
+        df.format(event.eventDate) shouldBe "20-12-2014 02:30:00"
     }
 })
