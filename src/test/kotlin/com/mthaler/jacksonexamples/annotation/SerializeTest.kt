@@ -1,6 +1,7 @@
 package com.mthaler.jacksonexamples.annotation
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import java.text.SimpleDateFormat
@@ -42,15 +43,15 @@ class SerializeTest: StringSpec({
         user.toJson() shouldBe  """{"user":{"id":1,"name":"John"}}"""
     }
 
-//    "serializeUsing@JsonSerialize" {
-//        val df = SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
-//
-//        val toParse = "20-12-2014 02:30:00"
-//        val date = df.parse(toParse)
-//        val event = EventWithSerializer("party", date)
-//
-//        val result = ObjectMapper().writeValueAsString(event)
-//
-//        println(result)
-//    }
+    "serializeUsing@JsonSerialize" {
+        val df = SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
+
+        val toParse = "20-12-2014 02:30:00"
+        val date = df.parse(toParse)
+        val event = EventWithSerializer("party", date)
+
+        val result = jacksonObjectMapper().writeValueAsString(event)
+
+        result shouldBe """{"name":"party","eventDate":"20-12-2014 02:30:00"}"""
+    }
 })

@@ -9,7 +9,7 @@ import java.util.*
 
 class CustomDateSerializer(t: Class<Date>): StdSerializer<Date>(t) {
 
-    constructor() : this(null as Class<Date>)
+    constructor() : this(Date::class.java)
 
     override fun serialize(value: Date, gen: JsonGenerator, provider: SerializerProvider) {
         gen.writeString(formatter.format(value));
