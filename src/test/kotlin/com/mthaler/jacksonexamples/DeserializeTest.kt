@@ -7,9 +7,6 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import java.text.SimpleDateFormat
 
-
-
-
 class DeserializeTest: StringSpec({
 
     "deserializeUser" {
@@ -52,5 +49,12 @@ class DeserializeTest: StringSpec({
         val event = json.toEventWithSerializer()
 
         df.format(event.eventDate) shouldBe "20-12-2014 02:30:00"
+    }
+
+    "deserializeUsing@JsonAlias" {
+        val json = """{"fname":"John", "lastName":"Green"}"""
+        val bean = json.toAliasBean()
+        bean.firstName shouldBe "John"
+        bean.lastName shouldBe "Green"
     }
 })

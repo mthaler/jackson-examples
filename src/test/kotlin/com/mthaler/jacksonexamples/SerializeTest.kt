@@ -1,6 +1,5 @@
 package com.mthaler.jacksonexamples
 
-import com.mthaler.jacksonexamples.*
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import java.text.SimpleDateFormat
@@ -44,5 +43,10 @@ class SerializeTest: StringSpec({
         val toParse = "20-12-2014 02:30:00"
         val date = df.parse(toParse)
         EventWithSerializer("party", date).toJson() shouldBe """{"name":"party","eventDate":"20-12-2014 02:30:00"}"""
+    }
+
+    "serializeUsing@JsonAlias" {
+        val bean = AliasBean("John", "Green")
+        bean.toJson() shouldBe """{"firstName":"John","lastName":"Green"}"""
     }
 })
