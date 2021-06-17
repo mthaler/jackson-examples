@@ -1,5 +1,9 @@
 package com.mthaler.jacksonexamples
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.ser.FilterProvider
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import java.text.SimpleDateFormat
@@ -99,9 +103,16 @@ class SerializeTest: StringSpec({
         event.toJson() shouldBe """{"name":"party","eventDate":"20-12-2014 02:30:00"}"""
     }
 
-    "serializeUsing@JsonUnwrapp" {
+    "serializeUsing@JsonUnwrap" {
         val name = UnwrappedUser.Name("John", "Doe")
         val user = UnwrappedUser(1, name)
         user.toJson() shouldBe """{"id":1,"firstName":"John","lastName":"Doe"}"""
+    }
+
+    "serializeUsing@JsonFilter" {
+        val bean = BeanWithFilter(1, "My bean")
+        val filters: FilterProvider = SimpleFilterProvider().addFilter("myFilter", SimpleBeanPropertyFilter.filterOutAllExcept("name"))
+        val result = ObjectMapper().writer(filters).writeValueAsString(bean)
+        result shouldBe """{"name":"My bean"}"""
     }
 })
