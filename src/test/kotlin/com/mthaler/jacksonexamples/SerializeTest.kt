@@ -59,4 +59,9 @@ class SerializeTest: StringSpec({
         val bean = BeanWithIgnore(1, "test")
         bean.toJson() shouldBe """{"name":"test"}"""
     }
+
+    "serializeUser@JsonIgnoreType" {
+        val user = User2(42, User2.Name("John", "Doe"))
+        user.toJson() shouldBe """{"id":42}"""
+    }
 })

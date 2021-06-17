@@ -64,4 +64,10 @@ class DeserializeTest: StringSpec({
         bean.id shouldBe 0
         bean.name shouldBe "test"
     }
+
+    "deserializeUser@JsonIgnoreType" {
+        val user = """{"id":42}""".toUser2()
+        user.id shouldBe 42
+        user.name shouldBe User2.Name("", "")
+    }
 })
