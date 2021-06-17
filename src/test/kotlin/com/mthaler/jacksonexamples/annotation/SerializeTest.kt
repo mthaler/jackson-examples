@@ -8,6 +8,11 @@ import java.text.SimpleDateFormat
 
 class SerializeTest: StringSpec({
 
+    "serializeUser" {
+        val user = User("adams", 42)
+        user.toJson() shouldBe """{"id":"adams","age":42}"""
+    }
+
     "serializeUsing@JsonAnyGetter" {
         val bean = ExtendableBean("My bean")
         bean.add("attr1", "val1")
