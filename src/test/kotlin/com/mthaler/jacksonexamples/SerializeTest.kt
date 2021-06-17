@@ -54,4 +54,9 @@ class SerializeTest: StringSpec({
         val bean = BeanWithIgnoreProperties(1, "test")
         bean.toJson() shouldBe """{"name":"test"}"""
     }
+
+    "serializeUsing@JsonIgnore" {
+        val bean = BeanWithIgnore(1, "test")
+        bean.toJson() shouldBe """{"name":"test"}"""
+    }
 })
