@@ -70,4 +70,9 @@ class DeserializeTest: StringSpec({
         user.id shouldBe 42
         user.name shouldBe User2.Name("", "")
     }
+
+    "deserializePolymorphic" {
+        val zoo = """{"animal":{"type":"dog","name":"lacy","barkVolume":2.5}}""".toZoo()
+        zoo.animal shouldBe Zoo.Dog("lacy", 2.5)
+    }
 })

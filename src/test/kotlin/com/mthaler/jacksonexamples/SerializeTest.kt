@@ -1,8 +1,11 @@
 package com.mthaler.jacksonexamples
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldInclude
 import java.text.SimpleDateFormat
+
 
 class SerializeTest: StringSpec({
 
@@ -73,5 +76,11 @@ class SerializeTest: StringSpec({
     "serializeMyBeanUsing@JsonAutoDetect" {
         val bean = PrivateBean(1, "john")
         bean.toJson() shouldBe """{"id":1,"name":"john"}"""
+    }
+
+    "serializePolymorphic" {
+        val dog = Zoo.Dog("lacy", 2.5)
+        val zoo = Zoo(dog)
+        zoo.toJson() shouldBe """{"animal":{"type":"dog","name":"lacy","barkVolume":2.5}}"""
     }
 })
