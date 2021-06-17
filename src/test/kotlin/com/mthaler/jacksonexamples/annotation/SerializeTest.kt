@@ -1,7 +1,6 @@
 package com.mthaler.jacksonexamples.annotation
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import java.text.SimpleDateFormat
@@ -25,36 +24,22 @@ class SerializeTest: StringSpec({
 
     "serializeUsing@JsonGetter" {
         val bean = MyBean(1, "My bean")
-
-        val result = ObjectMapper().writeValueAsString(bean)
-
-        result shouldBe """{"id":1,"name":"My bean"}"""
+        bean.toJson() shouldBe """{"id":1,"name":"My bean"}"""
     }
 
     "serializeUsing@JsonPropertyOrder" {
         val bean = MyBean2(1, "My bean")
-
-        val result = ObjectMapper().writeValueAsString(bean)
-
-        result shouldBe """{"name":"My bean","id":1}"""
+        bean.toJson() shouldBe """{"name":"My bean","id":1}"""
     }
 
     "serializeUsing@JsonRawValue" {
         val bean = RawBean("My bean", """{"attr":false}""")
-
-        val result = ObjectMapper().writeValueAsString(bean)
-
-        result shouldBe """{"name":"My bean","json":{"attr":false}}"""
+        bean.toJson() shouldBe """{"name":"My bean","json":{"attr":false}}"""
     }
 
     "serializeUsing@JsonRootName" {
         val user = UserWithRoot(1, "John")
-
-        val mapper = ObjectMapper()
-        mapper.enable(SerializationFeature.WRAP_ROOT_VALUE)
-        val result = mapper.writeValueAsString(user)
-
-        result shouldBe """{"user":{"id":1,"name":"John"}}"""
+        user.toJson() shouldBe  """{"user":{"id":1,"name":"John"}}"""
     }
 
 //    "serializeUsing@JsonSerialize" {
