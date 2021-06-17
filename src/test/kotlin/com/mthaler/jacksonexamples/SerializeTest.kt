@@ -5,7 +5,6 @@ import io.kotest.matchers.shouldBe
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class SerializeTest: StringSpec({
 
     "serializeUser" {
@@ -100,4 +99,9 @@ class SerializeTest: StringSpec({
         event.toJson() shouldBe """{"name":"party","eventDate":"20-12-2014 02:30:00"}"""
     }
 
+    "serializeUsing@JsonUnwrapp" {
+        val name = UnwrappedUser.Name("John", "Doe")
+        val user = UnwrappedUser(1, name)
+        user.toJson() shouldBe """{"id":1,"firstName":"John","lastName":"Doe"}"""
+    }
 })
