@@ -17,10 +17,7 @@ class SerializeTest: StringSpec({
         val bean = ExtendableBean("My bean")
         bean.add("attr1", "val1")
         bean.add("attr2", "val2")
-
-        val result = ObjectMapper().writeValueAsString(bean)
-
-        result shouldBe """{"name":"My bean","attr2":"val2","attr1":"val1"}"""
+        bean.toJson() shouldBe """{"name":"My bean","attr2":"val2","attr1":"val1"}"""
     }
 
     "serializeUsing@JsonGetter" {

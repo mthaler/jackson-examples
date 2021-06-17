@@ -30,4 +30,9 @@ class DeserializeTest: StringSpec({
         bean.id shouldBe 1
         bean.name shouldBe "My bean"
     }
+
+    "deserializeUsing@AnySetter" {
+        val json = """{"name":"My bean","attr2":"val2","attr1":"val1"}"""
+        json.toExtendableBean().getProperties() shouldBe  mapOf("attr1" to "val1", "attr2" to "val2")
+    }
 })
